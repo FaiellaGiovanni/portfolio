@@ -1,0 +1,9 @@
+# Compiled generator
+build/*
+!build/.gitkeep
+
+# Generated website (rebuilt from content/ every time)
+public/
+
+# Personal files that should never be published
+private/

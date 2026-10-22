@@ -1,0 +1,42 @@
+{
+  // Press Ctrl+Shift+B to compile the generator and rebuild the site.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compile generator",
+      "type": "process",
+      "command": "g++",
+      "args": [
+        "-std=c++17", "-O2", "-Wall", "-Wextra",
+        "generator/src/main.cpp",
+        "generator/src/markdown.cpp",
+        "generator/src/templates.cpp",
+        "generator/src/util.cpp",
+        "-o", "build/sitegen"
+      ],
+      "windows": {
+        "args": [
+          "-std=c++17", "-O2", "-Wall", "-Wextra",
+          "generator/src/main.cpp",
+          "generator/src/markdown.cpp",
+          "generator/src/templates.cpp",
+          "generator/src/util.cpp",
+          "-o", "build/sitegen.exe"
+        ]
+      },
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "silent", "clear": true }
+    },
+    {
+      "label": "Build site",
+      "type": "process",
+      "command": "${workspaceFolder}/build/sitegen",
+      "windows": { "command": "${workspaceFolder}\\build\\sitegen.exe" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": "Compile generator",
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}

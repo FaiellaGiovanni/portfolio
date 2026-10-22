@@ -1,0 +1,647 @@
+/* ==========================================================================
+   Portfolio styles
+   The look borrows from engineering drawings: paper-toned background,
+   thin rules, a faint grid, monospace labels and one blue accent.
+   Change the colors in :root to restyle the whole site.
+   ========================================================================== */
+
+:root {
+  --paper: #f5f4ef;
+  --surface: #fbfaf7;
+  --ink: #16191d;
+  --ink-soft: #4a5058;
+  --rule: #d8d6cd;
+  --grid: rgba(31, 79, 160, 0.07);
+  --accent: #1f4fa0;
+  --accent-soft: #e3e9f5;
+
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  --width: 68rem;
+  --measure: 40rem; /* comfortable line length for reading */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121417;
+    --surface: #181b1f;
+    --ink: #e8e6e1;
+    --ink-soft: #a3a8af;
+    --rule: #2c3036;
+    --grid: rgba(120, 160, 230, 0.06);
+    --accent: #8db0ef;
+    --accent-soft: #1d2738;
+  }
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: clip; /* the hero grid is full-bleed */
+}
+
+main {
+  flex: 1;
+  padding-block: 3rem 5rem;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--width);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  margin: 0 0 0.75rem;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 2.5rem 0 0.75rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Small monospace labels, like annotations on a drawing */
+.eyebrow,
+.card-meta,
+.back {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- Header & footer ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-block: 1rem;
+}
+
+.wordmark {
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav,
+.contact,
+.tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+
+.nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--ink);
+}
+
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-block: 1.5rem;
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.built {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+/* ---------- Home ---------- */
+
+.hero {
+  position: relative;
+  padding: 3.5rem 0 3rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+  isolation: isolate;
+}
+
+/* Faint graph-paper grid behind the hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -3rem calc(50% - 50vw) 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, black 40%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.5rem;
+  max-width: var(--measure);
+}
+
+.contact-hero a {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+
+.intro {
+  padding-block: 1.5rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2.5rem 0 1.25rem;
+}
+
+.section-head h2 {
+  margin: 0;
+}
+
+/* ---------- Project cards ---------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.35rem 1.35rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link p {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+}
+
+.card-meta {
+  margin-bottom: 0.6rem !important;
+}
+
+.card .tags {
+  margin-top: auto;
+}
+
+.tags {
+  gap: 0.4rem;
+}
+
+.tags li {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.status {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--rule);
+  color: var(--accent);
+}
+
+.status.solo {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: 0;
+}
+
+/* ---------- Project & content pages ---------- */
+
+.page-head {
+  margin-bottom: 2rem;
+}
+
+.lede {
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  margin: 0 0 1.25rem;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+/* Long-form text written in Markdown */
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose li + li {
+  margin-top: 0.3rem;
+}
+
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0.25rem 1.25rem;
+  border-left: 3px solid var(--accent);
+  color: var(--ink-soft);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Figures (posters, photos with captions) ---------- */
+
+.prose figure {
+  margin: 0 0 2rem;
+}
+
+.prose figure img {
+  display: block;
+  border: 1px solid var(--rule);
+}
+
+.prose figcaption {
+  margin-top: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+/* A poster is wider than the text column, so let it use the full page width */
+.prose figure.poster {
+  width: min(100vw - 2.5rem, var(--width) - 2.5rem);
+}
+
+/* ---------- Side-by-side comparison (photo vs. CAD) ---------- */
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1rem;
+  width: min(100vw - 2.5rem, var(--width) - 2.5rem);
+  margin-bottom: 2.5rem;
+}
+
+.compare figure {
+  margin: 0;
+}
+
+.compare img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Technical drawings are black on white, so give them a white backing
+   (keeps them readable in dark mode too) */
+figure.drawing img,
+.gallery.drawings img {
+  background: #fff;
+  object-fit: contain;
+}
+
+.prose figure.wide {
+  width: min(100vw - 2.5rem, var(--width) - 2.5rem);
+}
+
+/* ---------- Image galleries ---------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  gap: 0.75rem;
+  width: min(100vw - 2.5rem, var(--width) - 2.5rem);
+  margin: 1.25rem 0 2rem;
+}
+
+.gallery a {
+  display: block;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  transition: border-color 0.15s ease;
+}
+
+.gallery a:hover img {
+  border-color: var(--accent);
+}
+
+.gallery span {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+/* ---------- Tables ---------- */
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 1rem 0 2rem;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.prose th {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.bom td:first-child,
+.bom td:last-child {
+  font-family: var(--mono);
+  width: 4rem;
+}
+
+/* ---------- Resume page ---------- */
+
+.button {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--paper);
+  background: var(--accent);
+}
+
+.button:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.resume-note {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.entry {
+  margin-top: 1.5rem;
+}
+
+.entry-head,
+.entry-sub {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+}
+
+.entry-head span,
+.entry-sub span {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.entry-sub em {
+  color: var(--ink-soft);
+}
+
+.entry + ul {
+  margin-top: 0.5rem;
+}
+
+/* ---------- Portrait photos and videos ---------- */
+
+.compare.tall img {
+  aspect-ratio: 3 / 4;
+}
+
+.prose figure.photo,
+.prose figure.video {
+  margin: 1rem 0 2rem;
+}
+
+.prose figure.photo img {
+  max-width: 26rem;
+  width: 100%;
+}
+
+.prose figure.video video {
+  display: block;
+  width: 100%;
+  max-width: 22rem;
+  border-radius: 4px;
+  background: #000;
+}
+
+.prose h3 {
+  font-size: 1rem;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin: 2rem 0 0.5rem;
+}
+
+/* ---------- 3D model viewer ---------- */
+
+.prose figure.model {
+  margin: 0 0 2.5rem;
+}
+
+.prose figure.model model-viewer {
+  display: block;
+  width: 100%;
+  height: clamp(18rem, 55vw, 30rem);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  cursor: grab;
+}
+
+.prose figure.model model-viewer:active {
+  cursor: grabbing;
+}
+
+/* Square tiles: video next to a photo */
+.compare.square img,
+.compare.square video {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  width: 100%;
+  max-width: none;
+}
+
+.compare figure.video {
+  margin: 0;
+}
+
+.prose .compare figure.video video {
+  max-width: none;
+}
+
+/* Light backdrop for dark-colored models (e.g. the black pull-up bar),
+   kept light even when the site is in dark mode */
+.prose figure.model.light model-viewer {
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, #eceae4 100%);
+  border-color: #d8d6cd;
+}
